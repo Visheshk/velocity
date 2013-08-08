@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Load the Paper.js library -->
+
+	<script type="text/javascript" src="js/paper.js"></script>
+	<script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.10.3.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<!-- Define inlined PaperScript associate it with myCanvas -->
+	<script type="text/paperscript" canvas="myCanvas">
+		
+		var c1speed = 0, c2speed = 0;
+
+		$('#scale').change(function(evt) { 
+			c1speed = evt.target.valueAsNumber;
+		    document.getElementById('zoomVal').innerHTML = c1speed;
+		});
+
+		
+		var car1, car1s;
+		var c1 = new Rectangle(new Point(100, 100), new Point(200, 150));
+		car1 = new Path.RoundRectangle(c1, 5);
+		car1.name = 'car1';
+		car1.fillColor = '#cccccc';
+		car1.strokeColor = '#222222';
+		car1s = new PointText(new Point(120, 130));
+		car1s.name = 'car1s';
+		car1s.fillColor = 'black';
+		car1s.content = c1speed;
+
+	    
+	</script>
+
+	<script>
+
+	</script>
+
+</head>
+
+<body>
+
+<div class = "hero-unit">
+	<h3>Zoom
+    	<input id="scale" type="range" min="-20" max="20" value="0" step="1" /> :<span id="zoomVal"> 1</span> 
+
+    </h3>
+</div>
+
+<canvas id="myCanvas" resize></canvas>
+
+
+
+</body>
+</html>
