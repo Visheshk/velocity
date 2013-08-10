@@ -26,7 +26,7 @@
     <script type="text/paperscript" canvas="myCanvas" src = "js/race.js">    </script>
     
     <script type="text/javascript">
-      //window.globals = {};
+      
     </script>
 
   </head>
@@ -48,8 +48,7 @@
         <div class="nav-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" id = "about">About</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -87,5 +86,20 @@
     <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.3.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
+
+    <script>
+      $(document).ready( function() {
+        $("#about").popover({
+          'selector': '',
+          'placement': 'bottom',
+          'title': 'Learning Project',
+          'content': 'An attempt at helping understand the concept of frames of reference and relative velocity',
+          'trigger': 'click',
+          'container': 'body'
+        });
+        console.log("jimmy");
+      });
+    </script>
+
   </body>
 </html>

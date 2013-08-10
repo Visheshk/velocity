@@ -5,8 +5,8 @@ var buttons = new Layer();
 
 
       var hitOptions = {
-        segments: false,
-        stroke: false,
+        segments: true,
+        stroke: true,
         fill: true,
         tolerance: 15
       };
