@@ -102,24 +102,19 @@ var buttons = new Layer();
       butt2s.name = 'car2s';
       butt2s.fillColor = 'black';
       butt2s.content = 'Toggle car 2';
-
-
-            
       
-      
-      //camera1.bounds = rect;
-      
+      var rect2 = new Path.Rectangle(new Point(590, 0), new Point(810, 130));
+      rect2.fillColor = 'white';
+      rect2.strokeWidth = 5;
+      rect2.strokeColor = 'grey';
+      //Camera view set up here
       var rect = new Path.Rectangle(new Point(590, 0), new Point(810, 130));
-      
-      
       var camera1 = new Layer(rect);
       camera1.clipped = true;
-      camera1.opacity = 1;
-      var rect2 = new Path.Rectangle(new Point(595, 5), new Point(805, 125));
-      //rect2.scale(0.8);
+      camera1.opacity = 0.8;
+      var rect2 = new Path.Rectangle(new Point(590, 0), new Point(810, 130));
       rect2.fillColor = 'white';
-      //rect2.opacity = 1;
-      rect2.strokeWidth = 15;
+      rect2.strokeWidth = 5;
       rect2.strokeColor = 'grey';
       
       var trees3 = new Group();
@@ -137,17 +132,14 @@ var buttons = new Layer();
       
       trees3.scale(-1, -1);
       trees3.rotate(180, rect.bounds.center);
-      console.log(trees3.bounds.x + trees3.bounds.width - rect.bounds.x - rect.bounds.width, rect.bounds.x, car1.bounds.x + car1.bounds.width);
-      //trees3.bounds.x = rect.bounds.x - car1.bounds.x;
-      //console.log(trees3.bounds.x, rect.bounds.x, car1.bounds.x);
-      //trees3.bounds.x = rect.bounds.x - car1.bounds.x;
-      //console.log(trees3.bounds.x, rect.bounds.x, car1.bounds.x);
-      //var c3 = car2.clone();
-      //c3.position = camera1.bounds.center;
-      
-
-
-
+      //console.log(trees3.bounds.x + trees3.bounds.width - rect.bounds.x - rect.bounds.width, rect.bounds.x, car1.bounds.x + car1.bounds.width);
+      var carSide = new Raster('car-s');
+      carSide.position = new Point(10, 110);
+      carSide.opacity = 0.9;
+      //trees3.bounds.x + tree3.bounds.width - (carSide.bounds.x + carSide.bounds.width) = car2.bounds.x;
+      carSide.bounds.x = trees3.bounds.x + trees3.bounds.width - car2.bounds.x - carSide.bounds.width;
+      console.log(trees3.bounds.x + trees3.bounds.width);
+    
       function toggleCar2(){
         if(car2.visible == false){
           car2.visible = true;
@@ -207,14 +199,8 @@ var buttons = new Layer();
       }
 
       function updateCamera(){
-        //trees3.bounds.x = camera1.bounds.x - car1.bounds.x;
-        //console.log(trees3.bounds.x, camera1.bounds.x, car1.bounds.x);
-        //trees3.visible = false;
-        //trees3.bounds.x = rect.bounds.x - car1.bounds.x;
-        //trees3.scale(-1, -1);
-        //trees3.rotate(180, rect.bounds.center);
-        //trees3.visible = true;
         trees3.bounds.x = rect.bounds.x + rect.bounds.width - trees3.bounds.width + car1.bounds.x;
+        carSide.bounds.x = trees3.bounds.x + trees3.bounds.width - car2.bounds.x - carSide.bounds.width;  
       }
 
       function updateSpeed(){
