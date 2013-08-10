@@ -94,11 +94,12 @@ var buttons = new Layer();
 
       buttons.activate();
       butt2 = new Path.RoundRectangle(c2, 5);
+      butt2.position = car2.position;
       butt2.position.x = 125;
       butt2.name = 'car2';
       butt2.fillColor = '#ddeedd';
       butt2.strokeColor = '#222222';
-      butt2s = new PointText(new Point(90, 255));
+      butt2s = new PointText(new Point(90, 305));
       butt2s.name = 'car2s';
       butt2s.fillColor = 'black';
       butt2s.content = 'Toggle car 2';
@@ -132,11 +133,9 @@ var buttons = new Layer();
       
       trees3.scale(-1, -1);
       trees3.rotate(180, rect.bounds.center);
-      //console.log(trees3.bounds.x + trees3.bounds.width - rect.bounds.x - rect.bounds.width, rect.bounds.x, car1.bounds.x + car1.bounds.width);
       var carSide = new Raster('car-s');
       carSide.position = new Point(10, 110);
       carSide.opacity = 0.9;
-      //trees3.bounds.x + tree3.bounds.width - (carSide.bounds.x + carSide.bounds.width) = car2.bounds.x;
       carSide.bounds.x = trees3.bounds.x + trees3.bounds.width - car2.bounds.x - carSide.bounds.width;
       console.log(trees3.bounds.x + trees3.bounds.width);
     
@@ -201,6 +200,12 @@ var buttons = new Layer();
       function updateCamera(){
         trees3.bounds.x = rect.bounds.x + rect.bounds.width - trees3.bounds.width + car1.bounds.x;
         carSide.bounds.x = trees3.bounds.x + trees3.bounds.width - car2.bounds.x - carSide.bounds.width;  
+        if (car2Motion == 0){
+          carSide.visible = false;
+        }
+        else if (car2Motion == 1){
+          carSide.visible = true;
+        }
       }
 
       function updateSpeed(){
@@ -241,7 +246,7 @@ var buttons = new Layer();
 
 
         }
-        else if (carN == 2) {
+        else if (carN == 2 && car2Motion == 1) {
           car2.position.x += (c2speed / 3);
           car2s.position.x = car2.position.x + 40;
     
