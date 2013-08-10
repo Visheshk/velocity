@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Velocity</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap-new.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style type="text/css">
+      body {
+        padding-top: 50px;
+      }
+      .starter-template {
+        padding: 40px 15px;
+        text-align: left;
+      }
+    </style>
+
+    <script type="text/paperscript" canvas="myCanvas" src = "js/race.js">    </script>
+    
+    <script type="text/javascript">
+      //window.globals = {};
+    </script>
+
+  </head>
+
+  <body>
+  <img src = "images/tree.png" id = "tree" hidden />
+  <img src = "images/car1.png" id = "car1" hidden />
+  <img src = "images/car2.png" id = "car2" hidden />
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Velocity</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="starter-template">
+        
+        <p class="lead">
+          Car 1's speed 
+          <input id="scale" type="range" min="-20" max="20" value="0" step="1" /> :
+            <span id="zoomVal"> 0</span> 
+            <!--<button class = "btn" onclick = "javascript:
+              $('#scale').val(0);
+              stopCar(1);">Stop car</button> -->
+
+        </p>
+        <p class="lead">
+        
+          Car 2's speed 
+          <input id="scale2" type="range" min="-20" max="20" value="0" step="1" /> :
+            <span id="zoomVal2"> 0</span> 
+
+
+        </p>
+        <canvas id="myCanvas" resize style = "border: 10px solid black;"></canvas>
+        
+      </div>
+
+
+    </div><!-- /.container -->
+
+    <script type="text/javascript" src="js/paper.js"></script>
+    <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+  </body>
+</html>
