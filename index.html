@@ -27,7 +27,7 @@
       
       //globals.stopCar = stopCar;
 
-      var c1speed = 0, c2speed = 0, update = 0, c1speedDisp = 0 ,c2speedDisp = 0, pause = 0;
+      var c1speed = 0, c2speed = 0, update = 0, c1speedDisp = 0 ,c2speedDisp = 0, pause = 0, car2Motion = 0;
 
       var hitOptions = {
         segments: false,
@@ -130,12 +130,14 @@
           car2s.visible = true;
           butt2.position.y += 100;
           butt2s.position.y += 100;
+          car2Motion = 1;
         }
         else{
           car2.visible = false;
           car2s.visible = false;
           butt2.position.y -= 100;
           butt2s.position.y -= 100; 
+          car2Motion = 0;
         }
       }
 
@@ -153,8 +155,8 @@
       function onMouseMove(event){
         var hitResult = project.hitTest(event.point, hitOptions);
         var obj;
-        butt2.fillColor = '#ddeedd';
-        pauseB.fillColor = '#ffffff';
+        //butt2.fillColor = '#ddeedd';
+        //pauseB.fillColor = '#ffffff';
         project.layers[0].selected = false;
         if (hitResult){
           obj = hitResult.item;
@@ -187,15 +189,17 @@
         car2.right = car2.bounds.x + car2.bounds.width;
         car2.left = car2.bounds.x;
 
-        if(car1.right >= car2.left && car1.left <= car2.right){
-          c1speedDisp = c1speed - c2speed;
-          c2speedDisp = (-1) * c1speedDisp;
-          car1s.content = c1speedDisp;
-          car2s.content = c2speedDisp;
-        }
-        else{
-          car1s.content = c1speed;
-          car2s.content = c2speed;
+        if(car2Motion == 1){
+          if(car1.right >= car2.left && car1.left <= car2.right){
+            c1speedDisp = c1speed - c2speed;
+            c2speedDisp = (-1) * c1speedDisp;
+            car1s.content = c1speedDisp;
+            car2s.content = c2speedDisp;
+          }
+          else{
+            car1s.content = c1speed;
+            car2s.content = c2speed;
+          }
         }
       }
 
@@ -291,9 +295,11 @@
 
         </p>
         <p class="lead">
+        
           Car 2's speed 
           <input id="scale2" type="range" min="-20" max="20" value="0" step="1" /> :
             <span id="zoomVal2"> 0</span> 
+
 
         </p>
         <canvas id="myCanvas" resize style = "border: 10px solid black;"></canvas>
