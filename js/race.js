@@ -1,4 +1,4 @@
-var c1speed = 0, c2speed = 0, update = 0, c1speedDisp = 0 ,c2speedDisp = 0, pause = 0, car2Motion = 0;
+var c1speed = 0, c2speed = 0, update = 0, c1speedDisp = 0 ,c2speedDisp = 0, pause = 0, car2Motion = 0, cameraView = 1;
 var trees = new Layer();
 var cars = new Layer();
 var buttons = new Layer();
@@ -103,6 +103,16 @@ var buttons = new Layer();
       butt2s.name = 'car2s';
       butt2s.fillColor = 'black';
       butt2s.content = 'Toggle car 2';
+
+      var cb = new Rectangle(new Point(500, 80), new Point(550, 120));
+      var cButt = new Path.RoundRectangle(cb, 2);
+      cButt.name = 'pause';
+      cButt.fillColor = '#ffffff';
+      cButt.strokeColor = '#222222';
+      cButtT = new PointText(new Point(505, 105)); // pause Button Text
+      cButtT.name = 'cameraText';
+      cButtT.fillColor = 'black';
+      cButtT.content = 'Camera';
       
       var rect2 = new Path.Rectangle(new Point(590, 0), new Point(810, 130));
       rect2.fillColor = 'white';
@@ -111,12 +121,9 @@ var buttons = new Layer();
       //Camera view set up here
       var rect = new Path.Rectangle(new Point(590, 0), new Point(810, 130));
       var camera1 = new Layer(rect);
+      camera1.activate();
       camera1.clipped = true;
       camera1.opacity = 0.8;
-      var rect2 = new Path.Rectangle(new Point(590, 0), new Point(810, 130));
-      rect2.fillColor = 'white';
-      rect2.strokeWidth = 5;
-      rect2.strokeColor = 'grey';
       
       var trees3 = new Group();
       trees3.opacity = 0.8;
@@ -129,7 +136,7 @@ var buttons = new Layer();
         copy.position.x += 2 * i * copy.bounds.width;
         trees3.addChild(copy);
       }
-      trees3.bounds.x = rect.bounds.x - car1.bounds.x;
+      trees3.bounds.x = rect.bounds.x - car2.bounds.x;
       
       trees3.scale(-1, -1);
       trees3.rotate(180, rect.bounds.center);
@@ -138,7 +145,36 @@ var buttons = new Layer();
       carSide.opacity = 0.9;
       carSide.bounds.x = trees3.bounds.x + trees3.bounds.width - car2.bounds.x - carSide.bounds.width;
       console.log(trees3.bounds.x + trees3.bounds.width);
-    
+      camera1.visible = false;
+
+    //Camera 2 view set up here
+      var rect3 = rect.clone();
+      var camera2 = new Layer(rect3);
+      //camera2.clipped = true;
+      camera2.opacity = 0.8;
+      camera2.activate();
+      
+      var trees4 = new Group();
+      trees4.opacity = 0.8;
+      var tree4 = tree2.clone();
+      tree4.position = new Point(10, 60);
+      trees4.addChild(tree4);
+
+      for (var i = 0; i < 20; i++) {
+        var copy = tree4.clone();
+        copy.position.x += 2 * i * copy.bounds.width;
+        trees4.addChild(copy);
+      }
+      trees4.bounds.x = rect.bounds.x - car1.bounds.x;
+      
+      var car2Side = new Raster('car-s2');
+      car2Side.position = new Point(10, 110);
+      car2Side.opacity = 0.9;
+      console.log(trees4.bounds.x + trees4.bounds.width);
+      camera2.visible = true;
+
+      toggleCar2();
+
       function toggleCar2(){
         if(car2.visible == false){
           car2.visible = true;
@@ -167,6 +203,20 @@ var buttons = new Layer();
         }
       }
 
+      function toggleCamera(){
+        if(cameraView == 0){
+          camera2.visible = true;
+          camera1.visible = false
+          cameraView = 1;
+        }
+        else if(cameraView = 1){
+          camera2.visible = false;
+          camera1.visible = true;
+          cameraView = 0;
+
+        }
+      }
+
       function onMouseMove(event){
         var hitResult = project.hitTest(event.point, hitOptions);
         var obj;
@@ -176,7 +226,7 @@ var buttons = new Layer();
         if (hitResult){
           obj = hitResult.item;
         }
-        if(obj == butt2 || obj == pauseB){
+        if(obj == butt2 || obj == pauseB || obj == cButt){
           //obj.fillColor = '#ffeedd';
           obj.selected = 'true';
         }
@@ -192,8 +242,11 @@ var buttons = new Layer();
         if(obj == butt2){
           toggleCar2();
         }
-        if (obj == pauseB){
+        else if (obj == pauseB){
           togglePause();
+        }
+        else if (obj == cButt){
+          toggleCamera();
         }
       }
 
@@ -206,6 +259,10 @@ var buttons = new Layer();
         else if (car2Motion == 1){
           carSide.visible = true;
         }
+
+        trees4.bounds.x = rect.bounds.x - car2.bounds.x;
+        car2Side.bounds.x = trees4.bounds.x + car1.bounds.x;
+        //car2Side.bounds.x = 
       }
 
       function updateSpeed(){
